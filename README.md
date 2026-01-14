@@ -3,9 +3,9 @@
 
 ---
 
-*extended version of: [https://github.com/ufssh](https://github.com/ufssh/who)*
+*extended version of: [https://github.com/ufssh/who](https://github.com/ufssh/who)*
 
-### ☸️ Philosophy
+### Philosophy
 **Chaos to Order.** A digital cycle of 100 mathematical geometries and Shrimad Bhagavad Gita wisdom.
 
 ### 🕹 Interaction
@@ -14,7 +14,8 @@
 - **Akshara:** Change the typographic soul.
 
 ### checkout both version
-[#1](https://ufssh.github.io/who) | [#2 [extended](https://ufssh.github.io/swayam)
+[#who?](https://ufssh.github.io/who)
+[#2 Extended](https://ufssh.github.io/swayam)
 
 ---
 *“We were dust, we became one, we return to dust.”*
