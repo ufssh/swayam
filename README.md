@@ -18,6 +18,6 @@
 
 [#2 Extended](https://ufssh.github.io/swayam)
 
-```Both have been made with Gemini 3```
+*"Both have been made with Gemini 3"*
 ---
 *“We were dust, we became one, we return to dust.”*
