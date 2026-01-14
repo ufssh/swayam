@@ -1,0 +1,316 @@
+<!-- againowner.t.me | Gemini3-->
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kailash | शून्य </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&family=Montserrat:wght@800&family=Playfair+Display:ital,wght@0,900;1,900&family=Inter:wght@100;900&family=Noto+Serif+Devanagari:wght@700&family=Space+Mono&family=Outfit:wght@100;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #ffffff;
+            --accent: #d4af37;
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #canvas-container {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        .interface {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        h2 {
+            font-family: var(--font-main);
+            font-size: clamp(3rem, 12vw, 8rem);
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -0.02em;
+            line-height: 0.9;
+        }
+
+        .quote-block {
+            margin-top: 20px;
+            padding: 0 12%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 2s all cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .quote-block.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h3 {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            color: var(--accent);
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            opacity: 0.5;
+        }
+
+        .social-center {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            pointer-events: auto;
+        }
+
+        .social-center a {
+            color: var(--text);
+            font-size: 1.4rem;
+            transition: 0.4s;
+            opacity: 0.3;
+        }
+
+        .social-center a:hover {
+            opacity: 1;
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 50px;
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+            pointer-events: auto;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text);
+            padding: 14px 32px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: 0.5s;
+        }
+
+        button:hover {
+            border-color: var(--accent);
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        #mode-tag {
+            position: fixed;
+            top: 50px;
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 4px;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body onclick="cycleSamsara()">
+
+    <div id="mode-tag">STATE: <span id="form-name">PRALAYA (CHAOS)</span></div>
+    <div id="canvas-container"></div>
+
+    <div class="interface">
+        <h2 id="main-title">Kailash</h2>
+
+        <div class="quote-block" id="q-engine">
+            <h3 id="hi">नैनं छिन्दन्ति शस्त्राणि नैनं दहति पावकः।</h3>
+            <h4 id="en">Weapons cannot shred the soul, nor can fire burn it.</h4>
+
+            <div class="social-center">
+                <a href="https://github.com/ufssh"><i class="fab fa-github"></i></a>
+                <a href="https://AgainOwner.t.me"><i class="fab fa-telegram"></i></a>
+                <a href="mailto:hello@kailashhh.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="event.stopPropagation(); nextTheme()">Theme</button>
+            <button onclick="event.stopPropagation(); cycleSamsara()">Samsara</button>
+            <button onclick="event.stopPropagation(); nextFont()">Akshara</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const gitaQuotes = [
+            {h: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।", e: "Your right is to work only, never to its fruits."},
+            {h: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।", e: "Whenever righteousness declines, I manifest."},
+            {h: "कालोऽस्मि लोकक्षयकृत्प्रवृद्धो।", e: "I am Time, the destroyer of worlds."},
+            {h: "मनो दुर्निग्रहं चलं अभ्यासेन तु गृह्यते।", e: "The mind is restless, but practice can tame it."},
+            {h: "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।", e: "Be steadfast in yoga, O Arjuna. Abandon attachment."}
+        ];
+
+        const fonts = ['Poppins', 'Montserrat', 'Playfair Display', 'Outfit', 'Inter', 'Space Mono'];
+        const themes = [
+            {bg: '#000000', text: '#ffffff', acc: '#d4af37'},
+            {bg: '#0a0e14', text: '#e0e0e0', acc: '#00d4ff'}, 
+            {bg: '#0f0505', text: '#ffcccc', acc: '#ff4d4d'}, 
+            {bg: '#050f0a', text: '#ccffdd', acc: '#00ff88'}, 
+            {bg: '#0a0510', text: '#e0ccff', acc: '#b366ff'}  
+        ];
+
+        let scene, camera, renderer, particles, targetPositions;
+        let tIdx = 0, fIdx = 0, qIdx = 0, mIdx = 0;
+        let isChaos = true;
+        let isBlack = true;
+        const count = 22000;
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            camera.position.z = 2.5; 
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            const geo = new THREE.BufferGeometry();
+            const positions = new Float32Array(count * 3);
+            targetPositions = new Float32Array(count * 3);
+
+            // Initial Chaos
+            for(let i=0; i<count*3; i++) {
+                positions[i] = (Math.random() - 0.5) * 12;
+                targetPositions[i] = positions[i];
+            }
+
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const mat = new THREE.PointsMaterial({ size: 0.005, color: 0xffffff, transparent: true, opacity: 0.7 });
+            particles = new THREE.Points(geo, mat);
+            scene.add(particles);
+
+            animate();
+            document.getElementById('q-engine').classList.add('active');
+        }
+
+        function cycleSamsara() {
+            if (isChaos) {
+                // Move to Order (Object)
+                mIdx = (mIdx % 100) + 1;
+                generateOrder(mIdx);
+                document.getElementById('form-name').innerText = `SRISHTI (OBJECT_${mIdx.toString().padStart(3, '0')})`;
+                isChaos = false;
+            } else {
+                // Return to Chaos (Particles)
+                generateChaos();
+                document.getElementById('form-name').innerText = `PRALAYA (CHAOS)`;
+                isChaos = true;
+            }
+        }
+
+        function generateChaos() {
+            for (let i = 0; i < count; i++) {
+                const i3 = i * 3;
+                targetPositions[i3] = (Math.random() - 0.5) * 15;
+                targetPositions[i3+1] = (Math.random() - 0.5) * 15;
+                targetPositions[i3+2] = (Math.random() - 0.5) * 15;
+            }
+        }
+
+        function generateOrder(id) {
+            const p = 2 + (id % 5);
+            const q = 3 + (id % 7);
+            for (let i = 0; i < count; i++) {
+                const i3 = i * 3;
+                const t = (i / count) * Math.PI * 2;
+
+                // Sacred Geometry: Toroidal Lissajous
+                const r = 1.2 + 0.4 * Math.sin(p * t);
+                targetPositions[i3] = r * Math.cos(q * t);
+                targetPositions[i3+1] = r * Math.sin(q * t);
+                targetPositions[i3+2] = 0.6 * Math.cos((p + q) * t);
+            }
+        }
+
+        function nextTheme() {
+            if (isBlack) {
+                tIdx = Math.floor(Math.random() * (themes.length - 1)) + 1;
+                isBlack = false;
+            } else {
+                tIdx = 0;
+                isBlack = true;
+            }
+            const t = themes[tIdx];
+            document.body.style.backgroundColor = t.bg;
+            document.body.style.color = t.text;
+            document.documentElement.style.setProperty('--accent', t.acc);
+            particles.material.color.set(t.acc);
+        }
+
+        function nextFont() {
+            fIdx = (fIdx + 1) % fonts.length;
+            const selectedFont = fonts[fIdx];
+            document.documentElement.style.setProperty('--font-main', selectedFont);
+            document.getElementById('main-title').style.fontFamily = selectedFont;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const pos = particles.geometry.attributes.position.array;
+            for(let i=0; i<count*3; i++) {
+                pos[i] += (targetPositions[i] - pos[i]) * 0.02; // Smooth transition
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            particles.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+
+        setInterval(() => {
+            const wrap = document.getElementById('q-engine');
+            wrap.classList.remove('active');
+            setTimeout(() => {
+                qIdx = (qIdx + 1) % gitaQuotes.length;
+                document.getElementById('hi').innerText = gitaQuotes[qIdx].h;
+                document.getElementById('en').innerText = gitaQuotes[qIdx].e;
+                wrap.classList.add('active');
+            }, 1500);
+        }, 10000);
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        init();
+    </script>
+</body>
+</html>
